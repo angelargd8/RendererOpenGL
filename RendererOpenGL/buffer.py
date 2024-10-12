@@ -35,12 +35,24 @@ class Buffer(object):
                               3,                    #size de datos
                               GL_FLOAT,             #type
                               GL_FALSE,             #is it normalized?
-                              4 * 3,                #stride size in bytes
+                              4 * 6,                #stride size in bytes, cada cuanto hay un nuevo vertice
                               ctypes.c_void_p(0))   #offset
         
         glEnableVertexAttribArray(0)
         
-        glDrawArrays(GL_TRIANGLES, 0, len(self.vertBuffer) // 3) #3 es la cantidad de datos
+        #atributo de colores
+        glVertexAttribPointer(1,                    #attribute number
+                              3,                    #size de datos
+                              GL_FLOAT,             #type
+                              GL_FALSE,             #is it normalized?
+                              4 * 6,                #stride size in bytes, cada cuanto hay un nuevo vertice
+                              ctypes.c_void_p(4*3))   #offset 4*3 4 bytes por cada float, lueg de 3floats empieza la informacion delcolor
+        
+        glEnableVertexAttribArray(1)
+
+
+        
+        glDrawArrays(GL_TRIANGLES, 0, len(self.vertBuffer) // 6) #3 es la cantidad de datos
         
 
         
